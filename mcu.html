@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Movimiento Circular Uniforme</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f4f6f9;
+margin:0;
+}
+
+header{
+background:#1976d2;
+color:white;
+padding:20px;
+}
+
+canvas{
+background:white;
+border:2px solid black;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Movimiento Circular Uniforme</h1>
+</header>
+
+<p>
+Radio:
+<input type="range" id="radio" min="50" max="150" value="100">
+<span id="radioValor">100</span> px
+</p>
+
+<p>
+Velocidad Angular:
+<input type="range" id="velocidad" min="1" max="10" value="3">
+<span id="velocidadValor">3</span>
+</p>
+
+<canvas id="canvas" width="700" height="500"></canvas>
+
+<p id="info"></p>
+
+<p>
+<a href="index.html">Volver al Inicio</a>
+</p>
+
+<script>
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+let angulo=0;
+
+function animar(){
+
+ctx.clearRect(0,0,700,500);
+
+let radio=parseFloat(document.getElementById("radio").value);
+let velocidad=parseFloat(document.getElementById("velocidad").value);
+
+document.getElementById("radioValor").innerHTML=radio;
+document.getElementById("velocidadValor").innerHTML=velocidad;
+
+const cx=350;
+const cy=250;
+
+ctx.beginPath();
+ctx.arc(cx,cy,radio,0,Math.PI*2);
+ctx.stroke();
+
+let x=cx+radio*Math.cos(angulo);
+let y=cy+radio*Math.sin(angulo);
+
+ctx.beginPath();
+ctx.arc(x,y,15,0,Math.PI*2);
+ctx.fillStyle="red";
+ctx.fill();
+
+ctx.beginPath();
+ctx.moveTo(cx,cy);
+ctx.lineTo(x,y);
+ctx.strokeStyle="blue";
+ctx.stroke();
+
+document.getElementById("info").innerHTML=
+"En el MCU la rapidez permanece constante, pero cambia continuamente la dirección del movimiento.";
+
+angulo+=velocidad*0.02;
+
+requestAnimationFrame(animar);
+
+}
+
+animar();
+
+</script>
+
+</body>
+</html>
