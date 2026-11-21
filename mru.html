@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRU - Movimiento Rectilíneo Uniforme</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    text-align:center;
+    margin:0;
+}
+
+header{
+    background:#1976d2;
+    color:white;
+    padding:20px;
+}
+
+.panel{
+    margin:20px;
+    font-size:18px;
+}
+
+canvas{
+    background:white;
+    border:2px solid #333;
+    margin-top:20px;
+}
+
+.info{
+    margin-top:20px;
+    font-size:18px;
+}
+
+button{
+    padding:10px 20px;
+    margin:10px;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+    <h1>Movimiento Rectilíneo Uniforme (MRU)</h1>
+</header>
+
+<div class="panel">
+    Velocidad:
+    <input type="range" id="velocidad" min="1" max="20" value="5">
+    <span id="valorVelocidad">5</span> m/s
+</div>
+
+<canvas id="lienzo" width="900" height="250"></canvas>
+
+<div class="info">
+    <p id="explicacion">
+        El objeto se mueve con velocidad constante.
+    </p>
+</div>
+
+<a href="index.html">
+    <button>Volver al menú principal</button>
+</a>
+
+<script>
+
+const canvas = document.getElementById("lienzo");
+const ctx = canvas.getContext("2d");
+
+const slider = document.getElementById("velocidad");
+const texto = document.getElementById("valorVelocidad");
+
+let x = 50;
+
+function dibujarRegla(){
+
+    for(let i=0;i<900;i+=50){
+
+        ctx.beginPath();
+        ctx.moveTo(i,180);
+        ctx.lineTo(i,210);
+        ctx.strokeStyle="#999";
+        ctx.stroke();
+
+        ctx.fillStyle="black";
+        ctx.fillText(i/10,i,225);
+    }
+}
+
+function animar(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    dibujarRegla();
+
+    let velocidad = Number(slider.value);
+
+    texto.innerText = velocidad;
+
+    document.getElementById("explicacion").innerHTML =
+        "La velocidad es de " + velocidad +
+        " m/s. Como es MRU, la aceleración es igual a 0 m/s².";
+
+    ctx.beginPath();
+    ctx.arc(x,120,20,0,Math.PI*2);
+    ctx.fillStyle="#1976d2";
+    ctx.fill();
+
+    x += velocidad * 0.2;
+
+    if(x > 920){
+        x = -20;
+    }
+
+    requestAnimationFrame(animar);
+}
+
+animar();
+
+</script>
+
+</body>
+</html>
