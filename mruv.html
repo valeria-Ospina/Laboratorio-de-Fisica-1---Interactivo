@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MRUV</title>
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f4f6f9;
+}
+
+canvas{
+border:2px solid black;
+background:white;
+}
+
+</style>
+</head>
+<body>
+
+<h1>Movimiento Rectilíneo Uniformemente Variado</h1>
+
+<p>
+Velocidad Inicial:
+<input type="range" id="v0" min="1" max="10" value="3">
+<span id="v0valor">3</span>
+</p>
+
+<p>
+Aceleración:
+<input type="range" id="a" min="1" max="5" value="1">
+<span id="avalor">1</span>
+</p>
+
+<canvas id="canvas" width="800" height="200"></canvas>
+
+<p id="info"></p>
+
+<a href="index.html">Volver al Inicio</a>
+
+<script>
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+let tiempo=0;
+
+function animar(){
+
+ctx.clearRect(0,0,800,200);
+
+let v0=parseFloat(document.getElementById("v0").value);
+let a=parseFloat(document.getElementById("a").value);
+
+document.getElementById("v0valor").innerHTML=v0;
+document.getElementById("avalor").innerHTML=a;
+
+let x=50+(v0*tiempo)+(0.5*a*tiempo*tiempo);
+
+if(x>750){
+tiempo=0;
+x=50;
+}
+
+ctx.beginPath();
+ctx.arc(x,100,20,0,Math.PI*2);
+ctx.fillStyle="green";
+ctx.fill();
+
+document.getElementById("info").innerHTML=
+"El objeto acelera continuamente. Posición: "+Math.round(x);
+
+tiempo+=0.05;
+
+requestAnimationFrame(animar);
+
+}
+
+animar();
+
+</script>
+
+</body>
+</html>
