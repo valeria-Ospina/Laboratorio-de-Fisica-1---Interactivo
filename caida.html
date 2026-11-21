@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Caída Libre</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f4f6f9;
+}
+
+canvas{
+border:2px solid black;
+background:white;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Simulador de Caída Libre</h1>
+
+<p>
+Altura:
+<input type="range" id="altura" min="100" max="400" value="250">
+<span id="valor">250</span> px
+</p>
+
+<canvas id="canvas" width="500" height="450"></canvas>
+
+<p id="info"></p>
+
+<p>
+<a href="index.html">Volver al inicio</a>
+</p>
+
+<script>
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+let y=50;
+let velocidad=0;
+
+function animar(){
+
+ctx.clearRect(0,0,500,450);
+
+let altura=
+parseInt(document.getElementById("altura").value);
+
+document.getElementById("valor").innerText=altura;
+
+ctx.beginPath();
+ctx.arc(250,y,15,0,Math.PI*2);
+ctx.fillStyle="red";
+ctx.fill();
+
+velocidad+=0.15;
+y+=velocidad;
+
+if(y>altura){
+
+y=50;
+velocidad=0;
+
+}
+
+document.getElementById("info").innerHTML=
+"En caída libre la aceleración gravitacional es aproximadamente 9.81 m/s².";
+
+requestAnimationFrame(animar);
+
+}
+
+animar();
+
+</script>
+
+</body>
+</html>
