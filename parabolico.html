@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Movimiento Parabólico</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f4f6f9;
+margin:0;
+}
+
+header{
+background:#1565c0;
+color:white;
+padding:20px;
+}
+
+canvas{
+border:2px solid black;
+background:white;
+margin-top:20px;
+}
+
+.panel{
+margin:20px;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+<h1>Movimiento Parabólico</h1>
+</header>
+
+<div class="panel">
+
+<p>
+Velocidad Inicial:
+<input type="range" id="vel" min="10" max="100" value="50">
+<span id="velValor">50</span> m/s
+</p>
+
+<p>
+Ángulo:
+<input type="range" id="angulo" min="10" max="80" value="45">
+<span id="anguloValor">45</span>°
+</p>
+
+<button onclick="reiniciar()">
+Lanzar
+</button>
+
+</div>
+
+<canvas id="canvas" width="900" height="450"></canvas>
+
+<p id="info"></p>
+
+<p>
+<a href="index.html">Volver al inicio</a>
+</p>
+
+<script>
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+let t=0;
+let activo=false;
+
+function reiniciar(){
+t=0;
+activo=true;
+}
+
+function animar(){
+
+ctx.clearRect(0,0,900,450);
+
+ctx.beginPath();
+ctx.moveTo(0,400);
+ctx.lineTo(900,400);
+ctx.stroke();
+
+let v=
+parseFloat(document.getElementById("vel").value);
+
+let ang=
+parseFloat(document.getElementById("angulo").value);
+
+document.getElementById("velValor").innerHTML=v;
+document.getElementById("anguloValor").innerHTML=ang;
+
+if(activo){
+
+let rad=ang*Math.PI/180;
+
+let x=v*Math.cos(rad)*t;
+
+let y=
+(v*Math.sin(rad)*t)
+-(4.9*t*t);
+
+let px=50+x*2;
+let py=400-y*2;
+
+ctx.beginPath();
+ctx.arc(px,py,10,0,Math.PI*2);
+ctx.fillStyle="red";
+ctx.fill();
+
+document.getElementById("info").innerHTML=
+"Velocidad inicial: "+v+
+" m/s | Ángulo: "+ang+"°";
+
+t+=0.05;
+
+if(py>400){
+
+activo=false;
+
+}
+
+}
+
+requestAnimationFrame(animar);
+
+}
+
+animar();
+
+</script>
+
+</body>
+</html>
