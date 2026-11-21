@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Plano Inclinado</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f4f6f9;
+margin:0;
+}
+
+header{
+background:#1976d2;
+color:white;
+padding:20px;
+}
+
+canvas{
+border:2px solid black;
+background:white;
+margin-top:20px;
+}
+
+.panel{
+margin:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Plano Inclinado</h1>
+</header>
+
+<div class="panel">
+
+<p>
+Ángulo:
+<input type="range" id="angulo" min="10" max="60" value="30">
+<span id="anguloValor">30</span>°
+</p>
+
+<p>
+Masa:
+<input type="range" id="masa" min="1" max="20" value="5">
+<span id="masaValor">5</span> kg
+</p>
+
+</div>
+
+<canvas id="canvas" width="900" height="450"></canvas>
+
+<p id="info"></p>
+
+<p>
+<a href="index.html">Volver al Inicio</a>
+</p>
+
+<script>
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+let x=150;
+
+function animar(){
+
+ctx.clearRect(0,0,900,450);
+
+let angulo=parseFloat(document.getElementById("angulo").value);
+let masa=parseFloat(document.getElementById("masa").value);
+
+document.getElementById("anguloValor").innerHTML=angulo;
+document.getElementById("masaValor").innerHTML=masa;
+
+let rad=angulo*Math.PI/180;
+
+ctx.beginPath();
+ctx.moveTo(150,300);
+ctx.lineTo(600,300);
+ctx.lineTo(600,100);
+ctx.closePath();
+ctx.stroke();
+
+x+=0.5;
+
+if(x>500){
+x=150;
+}
+
+let y=300-((x-150)*Math.tan(rad));
+
+ctx.fillStyle="red";
+ctx.fillRect(x,y-20,30,30);
+
+document.getElementById("info").innerHTML=
+"Ángulo: "+angulo+
+"° | Masa: "+masa+
+" kg. Al aumentar el ángulo aumenta la componente del peso que empuja el bloque hacia abajo.";
+
+requestAnimationFrame(animar);
+}
+
+animar();
+
+</script>
+
+</body>
+</html>
