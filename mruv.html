@@ -36,6 +36,19 @@ Aceleración:
 
 <canvas id="canvas" width="800" height="200"></canvas>
 
+<button onclick="reiniciar()">
+Reiniciar
+</button>
+
+<p>
+Tiempo:
+<span id="cronometro">0.0</span> s
+</p>
+
+<p id="explicacion">
+Aquí aparecerá la explicación.
+</p>
+
 <p id="info"></p>
 
 <a href="index.html">Volver al Inicio</a>
@@ -47,34 +60,61 @@ const ctx=canvas.getContext("2d");
 
 let tiempo=0;
 
-function animar(){
+function reiniciar(){
 
-ctx.clearRect(0,0,800,200);
+    tiempo=0;
 
-let v0=parseFloat(document.getElementById("v0").value);
-let a=parseFloat(document.getElementById("a").value);
-
-document.getElementById("v0valor").innerHTML=v0;
-document.getElementById("avalor").innerHTML=a;
-
-let x=50+(v0*tiempo)+(0.5*a*tiempo*tiempo);
-
-if(x>750){
-tiempo=0;
-x=50;
 }
 
-ctx.beginPath();
-ctx.arc(x,100,20,0,Math.PI*2);
-ctx.fillStyle="green";
-ctx.fill();
+function animar(){
 
-document.getElementById("info").innerHTML=
-"El objeto acelera continuamente. Posición: "+Math.round(x);
+    ctx.clearRect(0,0,800,200);
 
-tiempo+=0.05;
+    let v0=parseFloat(document.getElementById("v0").value);
+    let a=parseFloat(document.getElementById("a").value);
 
-requestAnimationFrame(animar);
+    document.getElementById("v0valor").innerHTML=v0;
+    document.getElementById("avalor").innerHTML=a;
+
+    let x=50+(v0*tiempo)+(0.5*a*tiempo*tiempo);
+
+    if(x>750){
+        tiempo=0;
+        x=50;
+    }
+
+    ctx.beginPath();
+    ctx.arc(x,100,20,0,Math.PI*2);
+    ctx.fillStyle="green";
+    ctx.fill();
+
+    document.getElementById("cronometro").innerHTML=
+    tiempo.toFixed(2);
+
+    let texto="";
+
+    if(a<2){
+
+        texto=
+        "La aceleración es pequeña. La velocidad aumenta lentamente.";
+
+    }else if(a<4){
+
+        texto=
+        "La aceleración es moderada. La velocidad aumenta de forma constante.";
+
+    }else{
+
+        texto=
+        "La aceleración es alta. El objeto incrementa rápidamente su velocidad.";
+
+    }
+
+    document.getElementById("explicacion").innerHTML=texto;
+
+    tiempo+=0.05;
+
+    requestAnimationFrame(animar);
 
 }
 
