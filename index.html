@@ -15,16 +15,24 @@ background:#f4f6f9;
 header{
 background:#1976d2;
 color:white;
-padding:20px;
+padding:25px;
 text-align:center;
+}
+
+.categoria{
+padding:20px;
+}
+
+.categoria h2{
+color:#1976d2;
+border-bottom:3px solid #1976d2;
+padding-bottom:10px;
 }
 
 .container{
 display:flex;
-justify-content:center;
-gap:20px;
-padding:30px;
 flex-wrap:wrap;
+gap:20px;
 }
 
 .card{
@@ -35,7 +43,7 @@ width:250px;
 box-shadow:0 0 10px rgba(0,0,0,0.2);
 text-align:center;
 cursor:pointer;
-transition:0.3s;
+transition:.3s;
 }
 
 .card:hover{
@@ -55,38 +63,94 @@ color:black;
 
 <header>
 <h1>Laboratorio Virtual de Física</h1>
-<p>Simuladores interactivos tipo PHET</p>
+<p>Simuladores interactivos para el aprendizaje de la Física</p>
 </header>
+
+<div class="categoria">
+
+<h2>Cinemática</h2>
 
 <div class="container">
 
 <a href="mru.html">
 <div class="card">
-<h2>MRU</h2>
+<h3>MRU</h3>
 <p>Movimiento Rectilíneo Uniforme</p>
 </div>
 </a>
 
 <a href="mruv.html">
 <div class="card">
-<h2>MRUV</h2>
-<p>Movimiento Rectilíneo Uniformemente Variado</p>
+<h3>MRUV</h3>
+<p>Movimiento Uniformemente Variado</p>
 </div>
 </a>
 
 <a href="caida.html">
 <div class="card">
-<h2>Caída Libre</h2>
-<p>Simulación de gravedad</p>
+<h3>Caída Libre</h3>
+<p>Movimiento bajo gravedad</p>
 </div>
 </a>
 
 <a href="parabolico.html">
 <div class="card">
-<h2>Movimiento Parabólico</h2>
+<h3>Movimiento Parabólico</h3>
 <p>Lanzamiento de proyectiles</p>
 </div>
 </a>
+
+</div>
+
+</div>
+
+<div class="categoria">
+
+<h2>Dinámica</h2>
+
+<div class="container">
+
+<div class="card">
+<h3>Próximamente</h3>
+<p>Plano Inclinado</p>
+</div>
+
+<div class="card">
+<h3>Próximamente</h3>
+<p>Torque</p>
+</div>
+
+<div class="card">
+<h3>Próximamente</h3>
+<p>Movimiento Circular</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="categoria">
+
+<h2>Energía</h2>
+
+<div class="container">
+
+<div class="card">
+<h3>Próximamente</h3>
+<p>Energía Cinética</p>
+</div>
+
+<div class="card">
+<h3>Próximamente</h3>
+<p>Energía Potencial</p>
+</div>
+
+<div class="card">
+<h3>Próximamente</h3>
+<p>Energía Mecánica</p>
+</div>
+
+</div>
 
 </div>
 
